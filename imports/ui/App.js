@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
 
+import { Spaces } from '../api/spaces.js';
 import Space from './Space.js';
 
 // App component - represents the whole app
-export default class App extends Component {
-  getSpaces() {
-    return [
-      { _id: 1, name: 'This is space 1' },
-      { _id: 2, name: 'This is space 2' },
-      { _id: 3, name: 'This is space 3' }
-    ];
-  }
+class App extends Component {
 
   renderSpaces() {
-    return this.getSpaces().map(space => (
+    return this.props.spaces.map((space) => (
       <Space key={space._id} space={space} />
     ));
   }
@@ -30,3 +25,9 @@ export default class App extends Component {
     );
   }
 }
+
+export default withTracker(() => {
+  return {
+    spaces: Spaces.find({}).fetch(),
+  };
+})(App);
