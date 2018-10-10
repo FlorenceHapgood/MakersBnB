@@ -15,14 +15,7 @@ class App extends Component {
     const description = ReactDOM.findDOMNode(this.refs.descriptionInput).value.trim();
     const price = ReactDOM.findDOMNode(this.refs.priceInput).value.trim();
 
-    Spaces.insert({
-      name: name,
-      createdAt: new Date(),// current time
-      description: description,
-      price: price,
-      owner: Meteor.userId(),           // _id of logged in user
-      username: Meteor.user().username,  // username of logged in user
-    });
+    Meteor.call('spaces.insert', name, description, price);
 
 
     // Clear form
@@ -42,7 +35,7 @@ class App extends Component {
     return (
       <div className="container">
         <header>
-          <h1>Spaces</h1>
+          <h1>Makers Bnb</h1>
         </header>
         <AccountsUIWrapper />
 

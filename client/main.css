@@ -29,6 +29,8 @@ header {
   background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
   padding: 20px 15px 15px 15px;
   position: relative;
+  font-size: 40px;
+  text-align: center;
 }
 
 #login-buttons {
@@ -123,4 +125,9 @@ header .hide-completed {
   .new-space input {
     padding-bottom: 5px;
   }
+}
+
+.space {
+  padding-left: 10px;
+  padding-top:5px;
 }

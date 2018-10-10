@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Meteor } from 'meteor/meteor';
 
 
 // Space component - represents a single space for rent
@@ -6,7 +7,7 @@ export default class Space extends Component {
   render() {
     return (
 
-      <div>
+      <div class="space">
         <h1>{this.props.space.username}</h1>
         <h1>{this.props.space.name}</h1>
         <h3>{this.props.space.description}</h3>
