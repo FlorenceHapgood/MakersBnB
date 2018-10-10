@@ -71,6 +71,8 @@ class App extends Component {
 }
 
 export default withTracker(() => {
+  Meteor.subscribe('spaces');
+
   return {
     spaces: Spaces.find({}, { sort: { createdAt: -1 } }).fetch(),
     currentUser: Meteor.user(),

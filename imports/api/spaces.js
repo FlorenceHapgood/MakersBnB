@@ -11,8 +11,6 @@ if (Meteor.isServer) {
   });
 }
 
-
-
 Meteor.methods({
   'spaces.insert'(name, description, price) {
     check(name, String);
@@ -29,20 +27,22 @@ Meteor.methods({
         description: description,
         price: price,
         owner: this.userId,           // _id of logged in user
-        username: Meteor.users.findOne(this.userId).username,  // username of logged in user
+        username: Meteor.users.findOne(this.userId).username,  // username of logged in use
       });
   },
   'spaces.remove'(spaceId) {
     check(spaceId, String);
 
-    // const space = Spaces.findOne(spaceId);
-
-
+    const space = Spaces.findOne(spaceId);
+    if ( space.owner !== this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
     Spaces.remove(spaceId);
  },
+ 'spaces.setBooked'(spaceId, setBooked) {
+    check(spaceID, String);
+    check(setBooked, Boolean);
 
-//   'spaces.update'(spaceId) {
-//
-//     Spaces.update(spaceId, { $set: { checked: setChecked } });
-// },
+    Spaces.update(spaceID, { $set: { clicked: setBooked } });
+  },
 });

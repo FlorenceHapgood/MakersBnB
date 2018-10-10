@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import classnames from 'classnames';
+
 import { Tasks } from '../api/spaces.js';
 
 
 
 // Space component - represents a single space for rent
 export default class Space extends Component {
+  buttonClicked() {
+    // Set the checked property to the opposite of its current value
+    Meteor.call('spaces.setBooked', this.props.space._id, !this.props.space.booked);
+  }
 
   deleteThisSpace() {
-    console.log("hello")
-   Meteor.call('space.remove', this.props.space._id);
+   Meteor.call('spaces.remove', this.props.space._id);
  }
 
   render() {
     return (
-
 
         <div className="space">
           <h1>{this.props.space.username}</h1>
@@ -24,6 +28,7 @@ export default class Space extends Component {
           <h1>{this.props.space.name}</h1>
           <h3>{this.props.space.description}</h3>
           <h4>{this.props.space.price}</h4>
+          <button className="booking" onClick={this.buttonClicked.bind(this)} > Book this space! </button>
         </div>
     );
   }
