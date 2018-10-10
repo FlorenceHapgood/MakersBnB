@@ -7,6 +7,9 @@ import Space from './Space.js';
 import AccountsUIWrapper from './AccountsUIWrapper.js';
 // App component - represents the whole app
 class App extends Component {
+  constructor(props) {
+    super(props);
+  }
   handleSubmit(event) {
     event.preventDefault();
 

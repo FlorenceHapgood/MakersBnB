@@ -5,6 +5,14 @@ import { check } from 'meteor/check';
 
 export const Spaces = new Mongo.Collection('spaces');
 
+if (Meteor.isServer) {
+  Meteor.publish('spaces', function spacesPublication (){
+    return Spaces.find();
+  });
+}
+
+
+
 Meteor.methods({
   'spaces.insert'(name, description, price) {
     check(name, String);
@@ -24,4 +32,17 @@ Meteor.methods({
         username: Meteor.users.findOne(this.userId).username,  // username of logged in user
       });
   },
+  'spaces.remove'(spaceId) {
+    check(spaceId, String);
+
+    // const space = Spaces.findOne(spaceId);
+
+
+    Spaces.remove(spaceId);
+ },
+
+//   'spaces.update'(spaceId) {
+//
+//     Spaces.update(spaceId, { $set: { checked: setChecked } });
+// },
 });
