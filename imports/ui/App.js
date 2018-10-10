@@ -12,14 +12,22 @@ class App extends Component {
 
     // Find the name field via the React ref
     const name = ReactDOM.findDOMNode(this.refs.nameInput).value.trim();
+    const description = ReactDOM.findDOMNode(this.refs.descriptionInput).value.trim();
+    const price = ReactDOM.findDOMNode(this.refs.priceInput).value.trim();
 
     Spaces.insert({
-      name,
-      createdAt: new Date() // current time
+      name: name,
+      createdAt: new Date(),// current time
+      description: description,
+      price: price,
     });
+
 
     // Clear form
     ReactDOM.findDOMNode(this.refs.nameInput).value = '';
+    ReactDOM.findDOMNode(this.refs.descriptionInput).value = '';
+    ReactDOM.findDOMNode(this.refs.priceInput).value = '';
+
   }
 
   renderSpaces() {
@@ -34,12 +42,25 @@ class App extends Component {
         <header>
           <h1>Spaces</h1>
         </header>
-        <form className="new-name" onSubmit={this.handleSubmit.bind(this)}>
+        <form className="new-space" onSubmit={this.handleSubmit.bind(this)} >
           <input
             type="text"
             ref="nameInput"
             placeholder="Type to add new name"
           />
+
+          <input
+            type="text"
+            ref="descriptionInput"
+            placeholder="Type to add description"
+          />
+
+          <input
+            type="text"
+            ref="priceInput"
+            placeholder="Type to add new price"
+          />
+          <button>Submit</button>
         </form>
         <ul>{this.renderSpaces()}</ul>
       </div>
