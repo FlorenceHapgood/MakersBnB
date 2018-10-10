@@ -5,7 +5,9 @@ import React, { Component } from 'react';
 export default class Space extends Component {
   render() {
     return (
+
       <div>
+      <h1>{this.props.space.username}</h1>
         <h1>{this.props.space.name}</h1>
         <h3>{this.props.space.description}</h3>
         <h4>{this.props.space.price}</h4>

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-
 import { Spaces } from '../api/spaces.js';
 import Space from './Space.js';
-
+import AccountsUIWrapper from './AccountsUIWrapper.js';
 // App component - represents the whole app
 class App extends Component {
   handleSubmit(event) {
@@ -20,6 +20,8 @@ class App extends Component {
       createdAt: new Date(),// current time
       description: description,
       price: price,
+      owner: Meteor.userId(),           // _id of logged in user
+      username: Meteor.user().email,  // username of logged in user
     });
 
 
@@ -42,6 +44,9 @@ class App extends Component {
         <header>
           <h1>Spaces</h1>
         </header>
+        <AccountsUIWrapper />
+
+        { this.props.currentUser ?
         <form className="new-space" onSubmit={this.handleSubmit.bind(this)} >
           <input
             type="text"
@@ -61,7 +66,8 @@ class App extends Component {
             placeholder="Type to add new price"
           />
           <button>Submit</button>
-        </form>
+        </form> : ''
+      }
         <ul>{this.renderSpaces()}</ul>
       </div>
     );
@@ -70,6 +76,7 @@ class App extends Component {
 
 export default withTracker(() => {
   return {
-    spaces: Spaces.find({}, { sort: { createdAt: -1 } }).fetch()
+    spaces: Spaces.find({}, { sort: { createdAt: -1 } }).fetch(),
+    currentUser: Meteor.user(),
   };
 })(App);
