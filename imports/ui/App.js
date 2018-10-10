@@ -21,7 +21,7 @@ class App extends Component {
       description: description,
       price: price,
       owner: Meteor.userId(),           // _id of logged in user
-      username: Meteor.user().email,  // username of logged in user
+      username: Meteor.user().username,  // username of logged in user
     });
 
 
