@@ -75,6 +75,6 @@ export default withTracker(() => {
 
   return {
     spaces: Spaces.find({}, { sort: { createdAt: -1 } }).fetch(),
-    currentUser: Meteor.user(),
+    currentUser: Meteor.user()
   };
 })(App);

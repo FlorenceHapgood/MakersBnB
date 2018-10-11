@@ -5,6 +5,7 @@ import { check } from 'meteor/check';
 
 export const Spaces = new Mongo.Collection('spaces');
 
+
 if (Meteor.isServer) {
   Meteor.publish('spaces', function spacesPublication (){
     return Spaces.find();
@@ -29,6 +30,7 @@ Meteor.methods({
         owner: this.userId,           // _id of logged in user
         username: Meteor.users.findOne(this.userId).username,
         booked: false,
+        bookedBy: null
       });
   },
   'spaces.remove'(spaceId) {
@@ -43,8 +45,11 @@ Meteor.methods({
  'spaces.setBooked'(spaceId, setBooked) {
     check(spaceId, String);
     check(setBooked, Boolean);
+    // check(setBookedBy, String);
     const space = Spaces.findOne(spaceId)
     console.log(space.booked)
+    console.log(Meteor.users.findOne(this.userId).username)
     Spaces.update(spaceId, { $set: { booked: setBooked } });
+    Spaces.update(spaceId, { $set: { bookedBy: Meteor.users.findOne(this.userId).username } });
   },
 });

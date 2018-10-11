@@ -9,6 +9,7 @@ import { Tasks } from '../api/spaces.js';
 // Space component - represents a single space for rent
 export default class Space extends Component {
   buttonClicked() {
+    console.log(this.currentUser)
     // Set the checked property to the opposite of its current value
     Meteor.call('spaces.setBooked', this.props.space._id, !this.props.space.booked);
   }
@@ -32,7 +33,7 @@ export default class Space extends Component {
             <button className="booking" onClick={this.buttonClicked.bind(this)}>
               Book now!
             </button>
-          : '' }
+          : this.props.space.bookedBy + ' booked ' + this.props.space.name }
         </div>
     );
   }
