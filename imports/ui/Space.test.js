@@ -1,0 +1,31 @@
+import { Factory } from 'meteor/dburles:factory';
+import React from 'react';
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
+import chai from 'chai';
+import { Spaces } from '../api/spaces.js';
+import Space from './Space.js';
+
+configure({ adapter: new Adapter() });
+
+describe('Space', () => {
+  it('should render', () => {
+    Factory.define('spaces', Spaces, {});
+    const space = Factory.build('spaces', {
+      username: 'testuser1',
+      name: 'Test Space 1',
+      description: 'Test Space 1 Description',
+      price: '49.95'
+    });
+    const spaceUI = shallow(<Space space={space} />);
+    console.log(spaceUI);
+    // chai.assert(item.hasClass('private'), 'css class private not found');
+    chai.assert(spaceUI.hasClass('space'));
+    chai.assert.equal(spaceUI.find('.editing').length, 0);
+    // chai.assert.equal(
+    //   item.find('input[type="text"]').prop('defaultValue'),
+    //   'testing'
+    // );
+  });
+});
