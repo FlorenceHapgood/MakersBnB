@@ -23,11 +23,12 @@ Meteor.methods({
 
       Spaces.insert({
         name: name,
-        createdAt: new Date(),// current time
+        createdAt: new Date(),
         description: description,
         price: price,
         owner: this.userId,           // _id of logged in user
-        username: Meteor.users.findOne(this.userId).username,  // username of logged in use
+        username: Meteor.users.findOne(this.userId).username,
+        booked: false,
       });
   },
   'spaces.remove'(spaceId) {
@@ -40,9 +41,10 @@ Meteor.methods({
     Spaces.remove(spaceId);
  },
  'spaces.setBooked'(spaceId, setBooked) {
-    check(spaceID, String);
+    check(spaceId, String);
     check(setBooked, Boolean);
-
-    Spaces.update(spaceID, { $set: { clicked: setBooked } });
+    const space = Spaces.findOne(spaceId)
+    console.log(space.booked)
+    Spaces.update(spaceId, { $set: { booked: setBooked } });
   },
 });
