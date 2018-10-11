@@ -27,12 +27,12 @@ export default class Space extends Component {
             <label htmlFor="owner">Owner:</label>
             <p name="owner">{this.props.space.username}</p>
           </div>
-          <h1 class="space-name">{this.props.space.name}</h1>
+          <h1 className="space-name">{this.props.space.name}</h1>
           <button className="delete" onClick={this.deleteThisSpace.bind(this)}>
             &times;
           </button>
         </div>
-        <p class="space-description">{this.props.space.description}</p>
+        <p className="space-description">{this.props.space.description}</p>
         <div className="space-price">
           <label htmlFor="price">Price per night: </label>
           <span name="price">{this.props.space.price}</span>

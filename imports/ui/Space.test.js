@@ -6,6 +6,8 @@ import { shallow } from 'enzyme';
 import chai from 'chai';
 import { Spaces } from '../api/spaces.js';
 import Space from './Space.js';
+import chaiEnzyme from 'chai-enzyme'
+chai.use(chaiEnzyme())
 
 configure({ adapter: new Adapter() });
 
@@ -23,9 +25,11 @@ describe('Space', () => {
     // chai.assert(item.hasClass('private'), 'css class private not found');
     chai.assert(spaceUI.hasClass('space'));
     chai.assert.equal(spaceUI.find('.editing').length, 0);
-    // chai.assert.equal(
+     //chai.assert.equal(
     //   item.find('input[type="text"]').prop('defaultValue'),
     //   'testing'
     // );
+    //chai.assert.equal(spaceUI.find('.space-name').text,'Test Space 1');
+    chai.expect(spaceUI.find('.space-name')).to.have.text('Test Space 1')
   });
 });
