@@ -20,7 +20,6 @@ class App extends Component {
 
     Meteor.call('spaces.insert', name, description, price);
 
-
     // Clear form
     ReactDOM.findDOMNode(this.refs.nameInput).value = '';
     ReactDOM.findDOMNode(this.refs.descriptionInput).value = '';
@@ -47,19 +46,22 @@ class App extends Component {
           <input
             type="text"
             ref="nameInput"
-            placeholder="Type to add new name"
+            placeholder="Property name"
+            required
           />
 
           <input
             type="text"
             ref="descriptionInput"
-            placeholder="Type to add description"
+            placeholder="Description"
+            required
           />
 
           <input
-            type="text"
+            type="number"
             ref="priceInput"
-            placeholder="Type to add new price"
+            placeholder="Price per night(£)"
+            required
           />
           <button>Submit</button>
         </form> : ''

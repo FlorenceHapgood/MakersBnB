@@ -17,7 +17,7 @@ Meteor.methods({
     check(name, String);
     check(description, String);
     check(price, String);
-    // Make sure the user is logged in before listing a space
+
     if (! this.userId) {
       throw new Meteor.Error('not-authorized');
     }
@@ -27,7 +27,7 @@ Meteor.methods({
         createdAt: new Date(),
         description: description,
         price: price,
-        owner: this.userId,           // _id of logged in user
+        owner: this.userId,
         username: Meteor.users.findOne(this.userId).username,
         booked: false,
         bookedBy: null
@@ -45,10 +45,7 @@ Meteor.methods({
  'spaces.setBooked'(spaceId, setBooked) {
     check(spaceId, String);
     check(setBooked, Boolean);
-    // check(setBookedBy, String);
     const space = Spaces.findOne(spaceId)
-    console.log(space.booked)
-    console.log(Meteor.users.findOne(this.userId).username)
     Spaces.update(spaceId, { $set: { booked: setBooked } });
     Spaces.update(spaceId, { $set: { bookedBy: Meteor.users.findOne(this.userId).username } });
   },
