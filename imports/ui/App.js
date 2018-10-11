@@ -7,9 +7,15 @@ import Space from './Space.js';
 import AccountsUIWrapper from './AccountsUIWrapper.js';
 // App component - represents the whole app
 class App extends Component {
+
   constructor(props) {
-    super(props);
-  }
+   super(props);
+
+   this.state = {
+     hideCompleted: false,
+   };
+ }
+
   handleSubmit(event) {
     event.preventDefault();
 
@@ -21,17 +27,33 @@ class App extends Component {
     Meteor.call('spaces.insert', name, description, price);
 
     // Clear form
+
     ReactDOM.findDOMNode(this.refs.nameInput).value = '';
     ReactDOM.findDOMNode(this.refs.descriptionInput).value = '';
     ReactDOM.findDOMNode(this.refs.priceInput).value = '';
 
   }
 
+  toggleHideCompleted() {
+  this.setState({
+    hideCompleted: !this.state.hideCompleted,
+  });
+}
+
+
+  renderRenterSpaces() {
+
+    var renterSpaces = this.props.spaces.filter(space => this.props.currentUser.username === space.username)
+      return renterSpaces.map(space => (
+        <Space key={space._id} space={space} />
+      ));
+    }
+
   renderSpaces() {
-    return this.props.spaces.map(space => (
-      <Space key={space._id} space={space} />
-    ));
-  }
+    var availableSpaces = this.props.spaces.filter(space => space.booked === false);
+    return availableSpaces.map(space => (
+        <Space key={space._id} space={space} />)
+    )};
 
   render() {
     return (
@@ -40,6 +62,7 @@ class App extends Component {
           <h1>Makers Bnb</h1>
         </header>
         <AccountsUIWrapper />
+
 
         { this.props.currentUser ?
         <form className="new-space" onSubmit={this.handleSubmit.bind(this)} >
@@ -66,6 +89,13 @@ class App extends Component {
           <button>Submit</button>
         </form> : ''
       }
+
+        { this.props.currentUser ?
+        <ul> <h1> Your listings </h1>
+          {this.renderRenterSpaces()}</ul> : ''
+        }
+
+        <h1> Spaces to rent </h1>
         <ul>{this.renderSpaces()}</ul>
       </div>
     );
