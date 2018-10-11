@@ -17,7 +17,6 @@ export default class Space extends Component {
 
   render() {
     return (
-
         <div className="space">
           <h1>{this.props.space.username}</h1>
           <button className="delete" onClick={this.deleteThisSpace.bind(this)}>
@@ -26,11 +25,12 @@ export default class Space extends Component {
           <h1>{this.props.space.name}</h1>
           <h3>{this.props.space.description}</h3>
           <h4>£{this.props.space.price}/night</h4>
-           { !this.props.space.booked ?
+           { !this.props.space.approved ?
             <button className="booking" onClick={this.buttonClicked.bind(this)}>
               Book now!
             </button>
-          : this.props.space.bookedBy + ' booked ' + this.props.space.name }
+          : this.props.space.bookedBy + ' booked ' + this.props.space.name
+ }
         </div>
     );
   }

@@ -10,10 +10,6 @@ class App extends Component {
 
   constructor(props) {
    super(props);
-
-   this.state = {
-     hideCompleted: false,
-   };
  }
 
   handleSubmit(event) {
@@ -34,13 +30,6 @@ class App extends Component {
 
   }
 
-  toggleHideCompleted() {
-  this.setState({
-    hideCompleted: !this.state.hideCompleted,
-  });
-}
-
-
   renderRenterSpaces() {
 
     var renterSpaces = this.props.spaces.filter(space => this.props.currentUser.username === space.username)
@@ -50,7 +39,7 @@ class App extends Component {
     }
 
   renderSpaces() {
-    var availableSpaces = this.props.spaces.filter(space => space.booked === false);
+    var availableSpaces = this.props.spaces.filter(space => space.approved === false);
     return availableSpaces.map(space => (
         <Space key={space._id} space={space} />)
     )};

@@ -30,7 +30,8 @@ Meteor.methods({
         owner: this.userId,
         username: Meteor.users.findOne(this.userId).username,
         booked: false,
-        bookedBy: null
+        bookedBy: null,
+        approved: false,
       });
   },
   'spaces.remove'(spaceId) {
