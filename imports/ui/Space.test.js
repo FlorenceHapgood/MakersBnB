@@ -26,7 +26,7 @@ describe('Space', () => {
     //chai.assert.equal(spaceUI.find('.editing').length, 0);
     chai.expect(spaceUI.find('.space-name')).to.have.text('Test Space 1');
     chai.expect(spaceUI.find('.space-description')).to.have.text('Test Space 1 Description');
-    chai.expect(spaceUI.find('.space-price span')).to.have.text('49.95');
+    chai.expect(spaceUI.find('.space-price span')).to.have.text('£49.95/night');
     chai.expect(spaceUI.find('.space-owner p')).to.have.text('testuser1');
   });
 });

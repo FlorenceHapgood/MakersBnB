@@ -5,6 +5,7 @@ import { check } from 'meteor/check';
 
 export const Spaces = new Mongo.Collection('spaces');
 
+
 if (Meteor.isServer) {
   Meteor.publish('spaces', function spacesPublication (){
     return Spaces.find();
@@ -16,18 +17,21 @@ Meteor.methods({
     check(name, String);
     check(description, String);
     check(price, String);
-    // Make sure the user is logged in before listing a space
+
     if (! this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
       Spaces.insert({
         name: name,
-        createdAt: new Date(),// current time
+        createdAt: new Date(),
         description: description,
         price: price,
-        owner: this.userId,           // _id of logged in user
-        username: Meteor.users.findOne(this.userId).username,  // username of logged in use
+        owner: this.userId,
+        username: Meteor.users.findOne(this.userId).username,
+        booked: false,
+        bookedBy: null,
+        approved: false,
       });
   },
   'spaces.remove'(spaceId) {
@@ -40,9 +44,10 @@ Meteor.methods({
     Spaces.remove(spaceId);
  },
  'spaces.setBooked'(spaceId, setBooked) {
-    check(spaceID, String);
+    check(spaceId, String);
     check(setBooked, Boolean);
-
-    Spaces.update(spaceID, { $set: { clicked: setBooked } });
+    const space = Spaces.findOne(spaceId)
+    Spaces.update(spaceId, { $set: { booked: setBooked } });
+    Spaces.update(spaceId, { $set: { bookedBy: Meteor.users.findOne(this.userId).username } });
   },
 });

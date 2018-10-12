@@ -34,11 +34,14 @@ export default class Space extends Component {
         </div>
         <p className="space-description">{this.props.space.description}</p>
         <div className="space-price">
-          <label htmlFor="price">Price per night: </label>
-          <span name="price">{this.props.space.price}</span>
+          <label htmlFor="price">Price: </label>
+          <span name="price">£{this.props.space.price}/night</span>
+          { !this.props.space.booked ?
           <button className="booking" onClick={this.buttonClicked.bind(this)}>
             Book this space!
-          </button>
+            </button>
+            :  <p> {this.props.space.bookedBy} booked {this.props.space.name} </p>
+          }
         </div>
       </div>
     );
