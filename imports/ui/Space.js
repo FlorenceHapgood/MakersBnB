@@ -8,19 +8,11 @@ import { Tasks } from '../api/spaces.js';
 export default class Space extends Component {
   buttonBookSpaceClicked() {
     // Set the checked property to the opposite of its current value
-    Meteor.call(
-      'spaces.setRequest',
-      this.props.space._id,
-      true
-    );
+    Meteor.call('spaces.setRequest', this.props.space._id, true);
   }
 
   buttonApproveBookingClicked() {
-    Meteor.call(
-      'spaces.setBooked',
-      this.props.space._id,
-      true
-    )
+    Meteor.call('spaces.setBooked', this.props.space._id, true);
   }
 
   deleteThisSpace() {
@@ -36,64 +28,79 @@ export default class Space extends Component {
   }
 
   spaceCanBeBooked() {
-    return !this.props.space.booked && !this.currentUserIsOwner() && this.userSignedIn();
+    return (
+      !this.props.space.booked &&
+      !this.currentUserIsOwner() &&
+      this.userSignedIn()
+    );
   }
 
   spaceCanBeApproved() {
-    return this.props.space.requested && this.currentUserIsOwner() && this.userSignedIn() && !this.props.space.booked;
+    return (
+      this.props.space.requested &&
+      this.currentUserIsOwner() &&
+      this.userSignedIn() &&
+      !this.props.space.booked
+    );
   }
 
   userSignedIn() {
-    return Meteor.user() !== null
+    return Meteor.user() !== null;
   }
 
   render() {
     return (
-     <article>
-      <div id={this.props.space._id} className="space">
-
-        <div>
-        <h3 className="space-name">{this.props.space.name}</h3>
-        <button className="delete" onClick={this.deleteThisSpace.bind(this)}>
-          &times;
-        </button>
-
-        <div className="space-owner">
-        <p name="owner"> Owner: {this.props.space.username}</p>
-        </div>
-        </div>
-
-        <p className="space-description"> Description: {this.props.space.description}</p>
-
-        <div className="space-price">
-          <label htmlFor="price">Price: </label>
-          <span name="price">
-            £{this.props.space.price}
-            /night
-          </span>
-          {this.spaceCanBeBooked() ? (
+      <article>
+        <div id={this.props.space._id} className="space">
+          <div>
+            <h3 className="space-name">{this.props.space.name}</h3>
             <button
-              className="booking"
-              onClick={this.buttonBookSpaceClicked.bind(this)}
+              className="delete"
+              onClick={this.deleteThisSpace.bind(this)}
             >
-              Book this space!
+              &times;
             </button>
-          ) : (this.spaceCanBeApproved() ? (
-            <button
-              className="booking"
-              onClick={this.buttonApproveBookingClicked.bind(this)}
-            >
-              Approve Booking
-            </button>
-          ) : ( this.props.space.booked  ?
-            <p>
-              {this.props.space.bookedBy} booked {this.props.space.name}
-            </p> : ''
-          )
-        )}
+
+            <div className="space-owner">
+              <p name="owner"> Owner: {this.props.space.username}</p>
+            </div>
+          </div>
+
+          <p className="space-description">
+            {' '}
+            Description: {this.props.space.description}
+          </p>
+
+          <div className="space-price">
+            <label htmlFor="price">Price: </label>
+            <span name="price">
+              £{this.props.space.price}
+              /night
+            </span>
+            {this.spaceCanBeBooked() ? (
+              <button
+                className="booking"
+                onClick={this.buttonBookSpaceClicked.bind(this)}
+              >
+                Book this space!
+              </button>
+            ) : this.spaceCanBeApproved() ? (
+              <button
+                className="booking"
+                onClick={this.buttonApproveBookingClicked.bind(this)}
+              >
+                Approve Booking
+              </button>
+            ) : this.props.space.booked ? (
+              <p>
+                {this.props.space.bookedBy} booked {this.props.space.name}
+              </p>
+            ) : (
+              ''
+            )}
+          </div>
         </div>
-    </article>
+      </article>
     );
   }
-
 }
