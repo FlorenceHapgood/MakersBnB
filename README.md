@@ -6,13 +6,13 @@ We are full of promise and joy and aspiration.
 
 The specification is:
 
-* Any signed-up user can list a new space.
-* Users can list multiple spaces.
-* Users should be able to name their space, provide a short description of the space, and a price per night.
-* Users should be able to offer a range of dates where their space is available.
-* Any signed-up user can request to hire any space for one night, and this should be approved by the user that owns that space.
-* Nights for which a space has already been booked should not be available for users to book that space.
-* Until a user has confirmed a booking request, that space can still be booked for that night.
+- Any signed-up user can list a new space.
+- Users can list multiple spaces.
+- Users should be able to name their space, provide a short description of the space, and a price per night.
+- Users should be able to offer a range of dates where their space is available.
+- Any signed-up user can request to hire any space for one night, and this should be approved by the user that owns that space.
+- Nights for which a space has already been booked should not be available for users to book that space.
+- Until a user has confirmed a booking request, that space can still be booked for that night.
 
 User stories:
 
@@ -75,3 +75,27 @@ As a signed-in user,
 I want my listing to be available until I have confirmed the booking.
 So that I can have more options to choose from.
 ```
+
+## User manual:
+
+- Clone the repository and run "npm install". It might be necessary to install meteor.
+- To run, type meteor in the command line. and visit the described local host.
+
+## Created by:
+
+- Marianne Rachid
+- Florence Hapgood
+- Jon Urry
+- James Rodney
+
+## Technology Used
+
+- Meteor
+- React
+- Mongo
+- Chai
+- Enzyme
+- Chai-Enzyme
+- Sinon
+- HTML
+- CSS
