@@ -1,6 +1,6 @@
 /* CSS declarations go here */
 body {
-  font-family: sans-serif;
+  font-family: "Courier New", Courier, monospace;
   background-color: #315481;
   background-image: linear-gradient(to bottom, #315481, #918e82 100%);
   background-attachment: fixed;
@@ -18,13 +18,14 @@ body {
 }
 
 .container {
-  max-width: 600px;
+  max-width: 900px;
   margin: 0 auto;
   min-height: 100%;
   background: white;
 }
 
 header {
+  font-family: "Tahoma", Geneva, sans-serif;
   background: #d2edf4;
   background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
   padding: 20px 15px 15px 15px;
@@ -35,6 +36,9 @@ header {
 
 #login-buttons {
   display: block;
+  padding-left: 10px;
+  font-family: "Courier New", Courier, monospace;
+
 }
 
 h1 {
@@ -46,8 +50,10 @@ h1 {
 }
 
 h2 {
+  font-family: 'Cantarell';
   text-align: center;
   text-decoration-line: underline;
+  padding-top: 10px;
 }
 
 form {
@@ -129,6 +135,7 @@ header .hide-completed {
 
   .new-space input {
     padding-bottom: 5px;
+
   }
 }
 
@@ -137,6 +144,38 @@ header .hide-completed {
   padding-top: 5px;
 }
 
+.split {
+  height: 100%;
+  width: 30%;
+  position: absolute;
+  z-index: 1;
+
+  overflow-x: hidden;
+  padding-top: 50px;
+  padding-left: 165px;
+  padding-right: 165px;
+}
+
+/* Control the left side */
+.left {
+
+  left: 0;
+  /* background-color: blue; */
+
+}
+
+/* Control the right side */
+.right {
+  right: 0;
+  /* background-color: red; */
+}
+
+article {
+  outline-width: 1px;
+  outline-style: groove;
+  outline-color: black;
+  padding-bottom: 10px;
+}
 /* .space-owner {
   display: inline-block;
   width: 20%;
