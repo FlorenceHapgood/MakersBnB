@@ -25,7 +25,7 @@ export default class Space extends Component {
           <h1>{this.props.space.name}</h1>
           <h3>{this.props.space.description}</h3>
           <h4>£{this.props.space.price}/night</h4>
-           { !this.props.space.approved ?
+           { !this.props.space.booked ?
             <button className="booking" onClick={this.buttonClicked.bind(this)}>
               Book now!
             </button>
