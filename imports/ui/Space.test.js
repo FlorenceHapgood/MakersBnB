@@ -22,14 +22,8 @@ describe('Space', () => {
     });
     const spaceUI = shallow(<Space space={space} />);
     console.log(spaceUI);
-    // chai.assert(item.hasClass('private'), 'css class private not found');
     chai.assert(spaceUI.hasClass('space'));
-    chai.assert.equal(spaceUI.find('.editing').length, 0);
-     //chai.assert.equal(
-    //   item.find('input[type="text"]').prop('defaultValue'),
-    //   'testing'
-    // );
-    //chai.assert.equal(spaceUI.find('.space-name').text,'Test Space 1');
+    //chai.assert.equal(spaceUI.find('.editing').length, 0);
     chai.expect(spaceUI.find('.space-name')).to.have.text('Test Space 1');
     chai.expect(spaceUI.find('.space-description')).to.have.text('Test Space 1 Description');
     chai.expect(spaceUI.find('.space-price span')).to.have.text('49.95');
