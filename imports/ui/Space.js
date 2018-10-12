@@ -9,13 +9,19 @@ export default class Space extends Component {
   buttonBookSpaceClicked() {
     // Set the checked property to the opposite of its current value
     Meteor.call(
-      'spaces.setBooked',
+      'spaces.setRequest',
       this.props.space._id,
-      !this.props.space.booked
+      true
     );
   }
 
-  buttonApproveBookingClicked() {}
+  buttonApproveBookingClicked() {
+    Meteor.call(
+      'spaces.setBooked',
+      this.props.space._id,
+      true
+    )
+  }
 
   deleteThisSpace() {
     Meteor.call('spaces.remove', this.props.space._id);
@@ -30,11 +36,15 @@ export default class Space extends Component {
   }
 
   spaceCanBeBooked() {
-    return !this.props.space.booked && !this.currentUserIsOwner();
+    return !this.props.space.booked && !this.currentUserIsOwner() && this.userSignedIn();
   }
 
   spaceCanBeApproved() {
-    return this.props.space.setRequest && this.currentUserIsOwner();
+    return this.props.space.requested && this.currentUserIsOwner() && this.userSignedIn() && !this.props.space.booked;
+  }
+
+  userSignedIn() {
+    return Meteor.user() !== null
   }
 
   render() {
@@ -64,20 +74,20 @@ export default class Space extends Component {
             >
               Book this space!
             </button>
-          ) : this.spaceCanBeApproved() ? (
+          ) : (this.spaceCanBeApproved() ? (
             <button
               className="booking"
               onClick={this.buttonApproveBookingClicked.bind(this)}
             >
               Approve Booking
             </button>
-          ) : (
+          ) : ( this.props.space.booked  ?
             <p>
               {this.props.space.bookedBy} booked {this.props.space.name}
-            </p>
-          )}
+            </p> : ''
+          )
+        )}
         </div>
       </div>
-    );
-  }
+  )}
 }

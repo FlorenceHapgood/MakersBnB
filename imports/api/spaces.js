@@ -30,7 +30,8 @@ Meteor.methods({
       booked: false,
       bookedBy: null,
       approved: false,
-      requestedBy: []
+      requestedBy: [],
+      requested: false,
     });
   },
   'spaces.remove'(spaceId) {
@@ -48,7 +49,7 @@ Meteor.methods({
     const space = Spaces.findOne(spaceId);
     Spaces.update(spaceId, { $set: { booked: setBooked } });
     Spaces.update(spaceId, {
-      $set: { bookedBy: Meteor.users.findOne(this.userId).username }
+      $set: { bookedBy: space.requestedBy}
     });
   },
   'spaces.setRequest'(spaceId, setRequest) {
