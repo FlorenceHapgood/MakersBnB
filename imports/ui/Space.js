@@ -6,7 +6,7 @@ import { Tasks } from '../api/spaces.js';
 
 // Space component - represents a single space for rent
 export default class Space extends Component {
-  buttonClicked() {
+  buttonBookSpaceClicked() {
     // Set the checked property to the opposite of its current value
     Meteor.call(
       'spaces.setBooked',
@@ -15,8 +15,26 @@ export default class Space extends Component {
     );
   }
 
+  buttonApproveBookingClicked() {}
+
   deleteThisSpace() {
     Meteor.call('spaces.remove', this.props.space._id);
+  }
+
+  currentUserIsOwner() {
+    let currentUser = Meteor.user();
+    return (
+      this.props.space.username ===
+      (currentUser === null ? '' : currentUser.username)
+    );
+  }
+
+  spaceCanBeBooked() {
+    return !this.props.space.booked && !this.currentUserIsOwner();
+  }
+
+  spaceCanBeApproved() {
+    return this.props.space.setRequest && this.currentUserIsOwner();
   }
 
   render() {
@@ -35,13 +53,29 @@ export default class Space extends Component {
         <p className="space-description">{this.props.space.description}</p>
         <div className="space-price">
           <label htmlFor="price">Price: </label>
-          <span name="price">£{this.props.space.price}/night</span>
-          { !this.props.space.booked ?
-          <button className="booking" onClick={this.buttonClicked.bind(this)}>
-            Book this space!
+          <span name="price">
+            £{this.props.space.price}
+            /night
+          </span>
+          {this.spaceCanBeBooked() ? (
+            <button
+              className="booking"
+              onClick={this.buttonBookSpaceClicked.bind(this)}
+            >
+              Book this space!
             </button>
-            :  <p> {this.props.space.bookedBy} booked {this.props.space.name} </p>
-          }
+          ) : this.spaceCanBeApproved() ? (
+            <button
+              className="booking"
+              onClick={this.buttonApproveBookingClicked.bind(this)}
+            >
+              Approve Booking
+            </button>
+          ) : (
+            <p>
+              {this.props.space.bookedBy} booked {this.props.space.name}
+            </p>
+          )}
         </div>
       </div>
     );

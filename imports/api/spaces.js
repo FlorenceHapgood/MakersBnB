@@ -2,12 +2,10 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 
-
 export const Spaces = new Mongo.Collection('spaces');
 
-
 if (Meteor.isServer) {
-  Meteor.publish('spaces', function spacesPublication (){
+  Meteor.publish('spaces', function spacesPublication() {
     return Spaces.find();
   });
 }
@@ -18,36 +16,52 @@ Meteor.methods({
     check(description, String);
     check(price, String);
 
-    if (! this.userId) {
+    if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
-      Spaces.insert({
-        name: name,
-        createdAt: new Date(),
-        description: description,
-        price: price,
-        owner: this.userId,
-        username: Meteor.users.findOne(this.userId).username,
-        booked: false,
-        bookedBy: null,
-        approved: false,
-      });
+    Spaces.insert({
+      name: name,
+      createdAt: new Date(),
+      description: description,
+      price: price,
+      owner: this.userId,
+      username: Meteor.users.findOne(this.userId).username,
+      booked: false,
+      bookedBy: null,
+      approved: false,
+      requestedBy: []
+    });
   },
   'spaces.remove'(spaceId) {
     check(spaceId, String);
 
     const space = Spaces.findOne(spaceId);
-    if ( space.owner !== this.userId) {
+    if (space.owner !== this.userId) {
       throw new Meteor.Error('not-authorized');
     }
     Spaces.remove(spaceId);
- },
- 'spaces.setBooked'(spaceId, setBooked) {
+  },
+  'spaces.setBooked'(spaceId, setBooked) {
     check(spaceId, String);
     check(setBooked, Boolean);
-    const space = Spaces.findOne(spaceId)
+    const space = Spaces.findOne(spaceId);
     Spaces.update(spaceId, { $set: { booked: setBooked } });
-    Spaces.update(spaceId, { $set: { bookedBy: Meteor.users.findOne(this.userId).username } });
+    Spaces.update(spaceId, {
+      $set: { bookedBy: Meteor.users.findOne(this.userId).username }
+    });
   },
+  'spaces.setRequest'(spaceId, setRequest) {
+    check(spaceId, String);
+    check(setRequest, Boolean);
+    let username = Meteor.users.findOne(this.userId).username;
+    const space = Spaces.findOne(spaceId);
+    if (!space.requestedBy.includes(username)) {
+      space.requestedBy.push(username);
+    }
+    Spaces.update(spaceId, { $set: { requested: setRequest } });
+    Spaces.update(spaceId, {
+      $set: { requestedBy: space.requestedBy }
+    });
+  }
 });
