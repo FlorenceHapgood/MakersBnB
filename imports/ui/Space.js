@@ -8,30 +8,42 @@ import { Tasks } from '../api/spaces.js';
 export default class Space extends Component {
   buttonClicked() {
     // Set the checked property to the opposite of its current value
-    Meteor.call('spaces.setBooked', this.props.space._id, !this.props.space.booked);
+    Meteor.call(
+      'spaces.setBooked',
+      this.props.space._id,
+      !this.props.space.booked
+    );
   }
 
   deleteThisSpace() {
-   Meteor.call('spaces.remove', this.props.space._id);
- }
+    Meteor.call('spaces.remove', this.props.space._id);
+  }
 
   render() {
     return (
-        <div className="space">
-          <h1>{this.props.space.username}</h1>
+      <div id={this.props.space._id} className="space">
+        <div>
+          <div className="space-owner">
+            <label htmlFor="owner">Owner:</label>
+            <p name="owner">{this.props.space.username}</p>
+          </div>
+          <h1 className="space-name">{this.props.space.name}</h1>
           <button className="delete" onClick={this.deleteThisSpace.bind(this)}>
             &times;
           </button>
-          <h1>{this.props.space.name}</h1>
-          <h3>{this.props.space.description}</h3>
-          <h4>£{this.props.space.price}/night</h4>
-           { !this.props.space.booked ?
-            <button className="booking" onClick={this.buttonClicked.bind(this)}>
-              Book now!
-            </button>
-          : this.props.space.bookedBy + ' booked ' + this.props.space.name
- }
         </div>
+        <p className="space-description">{this.props.space.description}</p>
+        <div className="space-price">
+          <label htmlFor="price">Price: </label>
+          <span name="price">£{this.props.space.price}/night</span>
+          { !this.props.space.booked ?
+          <button className="booking" onClick={this.buttonClicked.bind(this)}>
+            Book this space!
+            </button>
+            :  <p> {this.props.space.bookedBy} booked {this.props.space.name} </p>
+          }
+        </div>
+      </div>
     );
   }
 }

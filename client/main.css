@@ -129,5 +129,10 @@ header .hide-completed {
 
 .space {
   padding-left: 10px;
-  padding-top:5px;
+  padding-top: 5px;
+}
+
+.space-owner {
+  display: inline-block;
+  width: 20%;
 }
