@@ -21,6 +21,7 @@ export default class Space extends Component {
 
   render() {
     return (
+     <article>
       <div id={this.props.space._id} className="space">
 
         <div>
@@ -34,7 +35,7 @@ export default class Space extends Component {
         </div>
         </div>
 
-        <p className="space-description">{this.props.space.description}</p>
+        <p className="space-description"> Description: {this.props.space.description}</p>
 
         <div className="space-price">
           <label htmlFor="price">Price: </label>
@@ -50,6 +51,7 @@ export default class Space extends Component {
           </p>
           </div>
         </div>
+    </article>
     );
   }
 }

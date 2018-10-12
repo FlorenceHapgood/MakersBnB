@@ -44,6 +44,7 @@ class App extends Component {
         <Space key={space._id} space={space} />)
     )};
 
+
   render() {
     return (
       <div className="container">
@@ -79,14 +80,19 @@ class App extends Component {
         </form> : ''
       }
 
+      <div class = "split left">
         { this.props.currentUser ?
         <ul> <h2> Your listings </h2>
           {this.renderRenterSpaces()}</ul> : ''
         }
-
-        <h2> Spaces to rent </h2>
-        <ul>{this.renderSpaces()}</ul>
       </div>
+      <div class = "split right">
+        <ul><h2> Spaces to rent </h2>
+        {this.renderSpaces()}</ul>
+      </div>
+
+      </div>
+
     );
   }
 }
