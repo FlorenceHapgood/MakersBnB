@@ -80,11 +80,11 @@ class App extends Component {
       }
 
         { this.props.currentUser ?
-        <ul> <h1> Your listings </h1>
+        <ul> <h2> Your listings </h2>
           {this.renderRenterSpaces()}</ul> : ''
         }
 
-        <h1> Spaces to rent </h1>
+        <h2> Spaces to rent </h2>
         <ul>{this.renderSpaces()}</ul>
       </div>
     );

@@ -45,6 +45,11 @@ h1 {
   margin-right: 1em;
 }
 
+h2 {
+  text-align: center;
+  text-decoration-line: underline;
+}
+
 form {
   margin-top: 10px;
   margin-bottom: -10px;
@@ -132,7 +137,7 @@ header .hide-completed {
   padding-top: 5px;
 }
 
-.space-owner {
+/* .space-owner {
   display: inline-block;
   width: 20%;
-}
+} */

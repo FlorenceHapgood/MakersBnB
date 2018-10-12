@@ -22,28 +22,34 @@ export default class Space extends Component {
   render() {
     return (
       <div id={this.props.space._id} className="space">
+
         <div>
-          <div className="space-owner">
-            <label htmlFor="owner">Owner:</label>
-            <p name="owner">{this.props.space.username}</p>
-          </div>
-          <h1 className="space-name">{this.props.space.name}</h1>
-          <button className="delete" onClick={this.deleteThisSpace.bind(this)}>
-            &times;
-          </button>
+        <h3 className="space-name">{this.props.space.name}</h3>
+        <button className="delete" onClick={this.deleteThisSpace.bind(this)}>
+          &times;
+        </button>
+
+        <div className="space-owner">
+        <p name="owner"> Owner: {this.props.space.username}</p>
         </div>
+        </div>
+
         <p className="space-description">{this.props.space.description}</p>
+
         <div className="space-price">
           <label htmlFor="price">Price: </label>
           <span name="price">£{this.props.space.price}/night</span>
+
+          <p>
           { !this.props.space.booked ?
           <button className="booking" onClick={this.buttonClicked.bind(this)}>
             Book this space!
             </button>
             :  <p> {this.props.space.bookedBy} booked {this.props.space.name} </p>
           }
+          </p>
+          </div>
         </div>
-      </div>
     );
   }
 }
