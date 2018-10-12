@@ -1,6 +1,6 @@
 /* CSS declarations go here */
 body {
-  font-family: sans-serif;
+  font-family: "Courier New", Courier, monospace;
   background-color: #315481;
   background-image: linear-gradient(to bottom, #315481, #918e82 100%);
   background-attachment: fixed;
@@ -25,6 +25,7 @@ body {
 }
 
 header {
+  font-family: 'Cantarell';
   background: #d2edf4;
   background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
   padding: 20px 15px 15px 15px;
@@ -35,6 +36,8 @@ header {
 
 #login-buttons {
   display: block;
+  padding-left: 10px;
+
 }
 
 h1 {
@@ -46,8 +49,10 @@ h1 {
 }
 
 h2 {
+  font-family: 'Cantarell';
   text-align: center;
   text-decoration-line: underline;
+  padding-top: 10px;
 }
 
 form {
@@ -164,7 +169,10 @@ header .hide-completed {
 }
 
 article {
-
+  outline-width: 1px;
+  outline-style: groove;
+  outline-color: black;
+  padding-bottom: 10px;
 }
 /* .space-owner {
   display: inline-block;
