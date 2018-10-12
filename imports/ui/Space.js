@@ -4,8 +4,6 @@ import classnames from 'classnames';
 
 import { Tasks } from '../api/spaces.js';
 
-
-
 // Space component - represents a single space for rent
 export default class Space extends Component {
   buttonClicked() {
@@ -19,7 +17,6 @@ export default class Space extends Component {
 
   render() {
     return (
-
         <div className="space">
           <h1>{this.props.space.username}</h1>
           <button className="delete" onClick={this.deleteThisSpace.bind(this)}>
@@ -27,8 +24,13 @@ export default class Space extends Component {
           </button>
           <h1>{this.props.space.name}</h1>
           <h3>{this.props.space.description}</h3>
-          <h4>{this.props.space.price}</h4>
-          <button className="booking" onClick={this.buttonClicked.bind(this)} > Book this space! </button>
+          <h4>£{this.props.space.price}/night</h4>
+           { !this.props.space.booked ?
+            <button className="booking" onClick={this.buttonClicked.bind(this)}>
+              Book now!
+            </button>
+          : this.props.space.bookedBy + ' booked ' + this.props.space.name
+ }
         </div>
     );
   }

@@ -7,9 +7,11 @@ import Space from './Space.js';
 import AccountsUIWrapper from './AccountsUIWrapper.js';
 // App component - represents the whole app
 class App extends Component {
+
   constructor(props) {
-    super(props);
-  }
+   super(props);
+ }
+
   handleSubmit(event) {
     event.preventDefault();
 
@@ -20,19 +22,27 @@ class App extends Component {
 
     Meteor.call('spaces.insert', name, description, price);
 
-
     // Clear form
+
     ReactDOM.findDOMNode(this.refs.nameInput).value = '';
     ReactDOM.findDOMNode(this.refs.descriptionInput).value = '';
     ReactDOM.findDOMNode(this.refs.priceInput).value = '';
 
   }
 
+  renderRenterSpaces() {
+
+    var renterSpaces = this.props.spaces.filter(space => this.props.currentUser.username === space.username)
+      return renterSpaces.map(space => (
+        <Space key={space._id} space={space} />
+      ));
+    }
+
   renderSpaces() {
-    return this.props.spaces.map(space => (
-      <Space key={space._id} space={space} />
-    ));
-  }
+    var availableSpaces = this.props.spaces.filter(space => space.approved === false);
+    return availableSpaces.map(space => (
+        <Space key={space._id} space={space} />)
+    )};
 
   render() {
     return (
@@ -42,28 +52,39 @@ class App extends Component {
         </header>
         <AccountsUIWrapper />
 
+
         { this.props.currentUser ?
         <form className="new-space" onSubmit={this.handleSubmit.bind(this)} >
           <input
             type="text"
             ref="nameInput"
-            placeholder="Type to add new name"
+            placeholder="Property name"
+            required
           />
 
           <input
             type="text"
             ref="descriptionInput"
-            placeholder="Type to add description"
+            placeholder="Description"
+            required
           />
 
           <input
-            type="text"
+            type="number"
             ref="priceInput"
-            placeholder="Type to add new price"
+            placeholder="Price per night(£)"
+            required
           />
           <button>Submit</button>
         </form> : ''
       }
+
+        { this.props.currentUser ?
+        <ul> <h1> Your listings </h1>
+          {this.renderRenterSpaces()}</ul> : ''
+        }
+
+        <h1> Spaces to rent </h1>
         <ul>{this.renderSpaces()}</ul>
       </div>
     );
@@ -75,6 +96,6 @@ export default withTracker(() => {
 
   return {
     spaces: Spaces.find({}, { sort: { createdAt: -1 } }).fetch(),
-    currentUser: Meteor.user(),
+    currentUser: Meteor.user()
   };
 })(App);
