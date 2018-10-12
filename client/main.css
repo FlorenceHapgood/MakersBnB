@@ -25,7 +25,7 @@ body {
 }
 
 header {
-  font-family: 'Cantarell';
+  font-family: "Tahoma", Geneva, sans-serif;
   background: #d2edf4;
   background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
   padding: 20px 15px 15px 15px;
@@ -37,6 +37,7 @@ header {
 #login-buttons {
   display: block;
   padding-left: 10px;
+  font-family: "Courier New", Courier, monospace;
 
 }
 
@@ -134,6 +135,7 @@ header .hide-completed {
 
   .new-space input {
     padding-bottom: 5px;
+
   }
 }
 
